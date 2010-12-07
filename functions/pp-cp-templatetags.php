@@ -57,7 +57,7 @@ function is_pp_cp_mode() {
  * @uses 
  */
 function pp_cp_currency_format($currency) {
-	return (get_option( 'currency_type' )=='CPS')?array(get_option('cp_prefix'),$currency[1],get_option('cp_suffix')):$currency;
+	return (get_option( 'currency_type' )=='CPS')?array(get_option('cp_prefix'),(int)$currency[1],get_option('cp_suffix')):$currency;
 }
 
 /**
@@ -145,24 +145,24 @@ function pp_cp_validate_post( $message, $message_id ) {
  * $args  'post_id', 'payer_id', 'payee_id', 'amount', 'status', 'type' 
  * cp_log ($type, $uid, $points, $source)
  */
-function pp_cp_win( $args ) {	
-	if ( function_exists('cp_alterPoints') && function_exists('cp_log') ) {
+function pp_cp_win( $post_id ) {
 		
-		$bidder_id = (int)$bid['bidder_id'];
+	if ( function_exists('cp_alterPoints') && function_exists('cp_log') ) {
+		$bid = get_winning_bid($post_id);					
+		$bidder_id = $bid->post_author;
+		$bid_value = $bid->winning_bid_value;
+		$max_bid = $bid->post_content;
 		//get post info for cp_log and generate link to ended auction page
-		$post = get_post($bid['post_id']);
+		$post = get_post($post_id);
 		$title = $post->post_title;
-		$source = '<a href="'.home_url().'?post_type=auctions&p='.$bid['post_id'].'">'.$title.'</a>';		
+		$source = '<a href="'.home_url().'?post_type=auctions&p='.$post_id.'">'.$title.'</a>';		
 
 		if ( is_pp_cp_mode() ){
-			//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)	
-			//get previous winner bid details			
-			$max =	get_winning_bid( $bid['post_id'] );						
-			$max_bid = $max->post_content;
-			cp_alterPoints((int)$args['payee_id'],$max_bid-(int)$args['amount']);			
-			
-			cp_log(__('Item won for: ','cp').pp_money_format( $args['amount'] ).__('Remaining points unfrozen: '.($max_bid-(int)$args['amount']) , 'cp' ), (int)$args['payee_id'],  0 , $source);
-			cp_log(__('Item sold','cp'), (int)$args['payee_id'],  (int)$args['amount'], $source);
+			//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)						
+			cp_alterPoints( $bidder_id , $max_bid - $bid_value );			
+
+			cp_log( __('Item won for: ','cp').pp_money_format( $bid_value ).__(' Points unfrozen: '.($max_bid - $bid_value) , 'cp' ) , $bidder_id ,  $max_bid - $bid_value , $source );
+			cp_log( __('Item sold','cp') , $bidder_id ,  $bid_value , $source);
 			//TODO - adjust for actual win value and unfreeze max bid points
 
 		} else {
@@ -206,11 +206,10 @@ function pp_cp_bid( $bid ) {
 
 			$bid_value = $bid['bid_value'];		
 			//get previous winner bid details			
-			$prev =	get_winning_bid( $bid['post_id'] );
-			$max =	get_winning_bid( $bid['post_id'] );						
+			$prev =	get_winning_bid( $bid['post_id'] );						
 			$prev_bidder = $prev->post_author;
 			$prev_bid = $prev->winning_bid_value;
-			$max_bid = $max->post_content;
+			$max_bid = $prev->post_content;
 
 			if(	$prev_bidder == $bidder_id ) {
 				//increase max bid
