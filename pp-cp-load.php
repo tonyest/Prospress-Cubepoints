@@ -15,7 +15,7 @@ $cp_modules[] = array (
 	api_version => '1.0 (Do not change)',
 	author => 'Anthony Yin-Xiong Khoo',
 	author_url => 'http://prospress.org.au',
-	admin_function => 'pp_cp_admin_prospress',
+	admin_function => 'pp_cp_admin_menu',
 );
 if( !defined( 'PP_CP_PLUGIN_DIR' ) )
 	define( 'PP_CP_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . basename(dirname(__FILE__)) );
@@ -67,26 +67,32 @@ return	in_array( $plugin, apply_filters( 'active_plugins', get_option( 'active_p
  * @package Prospress
  * @since 0.1
  */
-if(pp_cp_is_plugin_active('cubepoints/cubepoints.php')&&pp_cp_is_plugin_active('Prospress/pp-load.php')){
-	include_once(PP_CP_PLUGIN_DIR.'/pp-cp-admin-prospress.php');
+if( pp_cp_is_plugin_active('cubepoints/cubepoints.php') && pp_cp_is_plugin_active('Prospress/pp-load.php') ){
+	include_once(PP_CP_PLUGIN_DIR.'/pp-cp-admin-menu.php');
 	include_once(PP_CP_PLUGIN_DIR.'/functions/pp-cp-templatetags.php');
 	include_once(PP_CP_PLUGIN_DIR.'/functions/pp-cp-cubepoints-mode.php');
 	add_action('init','pp_cp_cubepoints_mode');
-	add_option( 'pp_cp_win_pts' , 5 );
-	add_option( 'pp_cp_sell_pts' , 5 );
-	add_option( 'pp_cp_bid_pts' , 5) ;
-	add_filter('pp_money_format','pp_cp_format_currency_type');//add cubepoints format
-	add_filter('pp_set_currency','pp_cp_add_currency_type');
-	add_option( 'pp_cp_cubepoints_mode' , 'enabled' );
+	add_filter('pp_money_format','pp_cp_currency_format');//add cubepoints format
+	add_filter('pp_set_currency','pp_cp_currency_type');
 }
 else{
 	//throw error;
 }
-add_action('admin_init','cp_scripts');
 
-function cp_scripts(){
-	wp_enqueue_script( 'pp-cp-admin-prospress.', PP_CP_PLUGIN_URL .'/js/pp-cp-admin.js');
-	wp_enqueue_style('pp-cubepoints-sytle',PP_CP_PLUGIN_URL .'/css/pp-cubepoints-style.css');
+function pp_cp_admin_init(){
+	//register prospress cubepoints options
+	register_setting( 'pp_cp_options' , 'win_points' , 'ptsVal' );
+	register_setting( 'pp_cp_options' , 'sell_points' , 'ptsVal' );
+	register_setting( 'pp_cp_options' , 'bid_points' , 'ptsVal' );
+	$message = "Prospress - Cubepoints mode:&nbsp;&nbsp;&nbsp;Payment Settings disabled. Auctions are now based on cubepoints instead of 'real' currency";
+	if ( is_pp_cp_mode() ){
+		add_settings_error( 'currency_type', 'pp_cp_mode', $message, 'error' );
+		settings_errors('pp_cp_mode');
+	} else {
+		//check screen
+		//settings_errors('settings_updated');
+		//sticky error needs investigation
+	}
 }
-
+add_action('admin_init','pp_cp_admin_init' , 10);
 ?>
