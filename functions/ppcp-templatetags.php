@@ -8,10 +8,10 @@
  *
  * @uses 
  *//*						DEPRECATED   -   NOTHING TO INSTALL!!
-function pp_cp_install() {
+function ppcp_install() {
 
 }
-//add_action( 'pp_cp_activation', 'pp_cp_install' );
+//add_action( 'ppcp_activation', 'ppcp_install' );
 */
 /**
  * Return formatted url for cp_admin_ in prospress module
@@ -23,7 +23,7 @@ function pp_cp_install() {
  * @uses 
  *//*						DEPRECATED   -   SILLY FUNCTION FROM CUBEPOINTS THAT ISN'T NEEDED WITH SETTINGS API	
 function cp_pp_curPageURL($page = "menu") {
-	$link = "?page=cp_admin_modules&cp_module=pp_cp_admin_".$page;
+	$link = "?page=cp_admin_modules&cp_module=ppcp_admin_".$page;
 	$pageURL = 'http';
 	if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 	$pageURL .= "://";
@@ -44,7 +44,7 @@ function cp_pp_curPageURL($page = "menu") {
  *
  * @uses 
  */
-function is_pp_cp_mode() {
+function is_ppcp_mode() {
 	 return ( 'CPS' == get_option('currency_type') )? true : false ;
 }
 /**
@@ -56,7 +56,7 @@ function is_pp_cp_mode() {
  *
  * @uses 
  */
-function pp_cp_currency_format($currency) {
+function ppcp_currency_format($currency) {
 	return (get_option( 'currency_type' )=='CPS')?array(get_option('cp_prefix'),(int)$currency[1],get_option('cp_suffix')):$currency;
 }
 
@@ -69,7 +69,7 @@ function pp_cp_currency_format($currency) {
  *
  * @uses 
  */
-function pp_cp_currency_type($currencies) {
+function ppcp_currency_type($currencies) {
 	$currencies['CPS'] = array( 'currency_name' => __('Cubepoints'), 'symbol' => get_option('cp_prefix').' '.get_option('cp_suffix') );
 	return $currencies;
 }
@@ -85,7 +85,7 @@ function pp_cp_currency_type($currencies) {
 *
 * @uses CUBEPOINTS MODE
 */
-function pp_cp_validate_bid( $bid ) {
+function ppcp_validate_bid( $bid ) {
 	global $wpdb;
 	$max =	get_winning_bid( $bid['post_id'] );						
 	$max_bid = $max->post_content;
@@ -114,15 +114,15 @@ function pp_cp_validate_bid( $bid ) {
  *
  * @uses CUBEPOINTS MODE
  */
-function pp_cp_validate_post( $message, $message_id ) {
+function ppcp_validate_post( $message, $message_id ) {
 	switch( $message_id ) {
 		case 99 :
 			return  __( 'You do not have enough points for this bid.', 'prospress' );
 			break;
-		case 98 :	//message for pp-cp invalid number format to whole number
+		case 98 :	//message for ppcp invalid number format to whole number
 			return  __( 'Invalid bid. Please enter a valid whole number. e.g. 7 or 58', 'prospress' );
 			break;
-		case 7 :	//override standard invalid number format to pp-cp mode whole number
+		case 7 :	//override standard invalid number format to ppcp mode whole number
 			return  __( 'Invalid bid. Please enter a valid whole number. e.g. 7 or 58', 'prospress' );
 			break;
 		default:
@@ -145,7 +145,7 @@ function pp_cp_validate_post( $message, $message_id ) {
  * $args  'post_id', 'payer_id', 'payee_id', 'amount', 'status', 'type' 
  * cp_log ($type, $uid, $points, $source)
  */
-function pp_cp_win( $post_id ) {
+function ppcp_win( $post_id ) {
 		
 	if ( function_exists('cp_alterPoints') && function_exists('cp_log') ) {
 		$bid = get_winning_bid($post_id);					
@@ -157,7 +157,7 @@ function pp_cp_win( $post_id ) {
 		$title = $post->post_title;
 		$source = '<a href="'.home_url().'?post_type=auctions&p='.$post_id.'">'.$title.'</a>';		
 
-		if ( is_pp_cp_mode() ){
+		if ( is_ppcp_mode() ){
 			//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)						
 			cp_alterPoints( $bidder_id , $max_bid - $bid_value );			
 
@@ -166,7 +166,7 @@ function pp_cp_win( $post_id ) {
 			//TODO - adjust for actual win value and unfreeze max bid points
 
 		} else {
-			if ( !is_pp_cp_mode() && checked($sell_points['enabled'], 'on') ) {
+			if ( !is_ppcp_mode() && checked($sell_points['enabled'], 'on') ) {
 				//award set points to seller and log
 				cp_alterPoints((int)$args['payee_id'],(int)$sell_points['value']);
 				cp_log( __('Item sold','cp') , (int)$args['payee_id'] ,  (int)$sell_points['value'] , $source );
@@ -191,7 +191,7 @@ function pp_cp_win( $post_id ) {
  * @uses is_user_logged_in,get_option,cp_log,cp_currentUser
  * $bid = "post_id", "bidder_id", "bid_value", "bid_date", "bid_date_gmt" , 'bid_status', 'message_id'
  */
-function pp_cp_bid( $bid ) {
+function ppcp_bid( $bid ) {
 
 	if ( function_exists( 'cp_alterPoints' ) && function_exists( 'cp_log' ) ) {
 		
@@ -202,7 +202,7 @@ function pp_cp_bid( $bid ) {
 		$source = '<a href="'.home_url().'?post_type=auctions&p='.$bid['post_id'].'">'.$title.'</a>';		
 
 		//successful bid - award set points to winning bidder
-		if ( is_pp_cp_mode() && 'winning' == $bid['bid_status'] ) {
+		if ( is_ppcp_mode() && 'winning' == $bid['bid_status'] ) {
 
 			$bid_value = $bid['bid_value'];		
 			//get previous winner bid details			
@@ -224,9 +224,9 @@ function pp_cp_bid( $bid ) {
 				cp_alterPoints( $bidder_id , -$bid_value );
 				cp_log( __('Successful Bid! points frozen','cp') , $bidder_id ,  -$bid_value , $source);
 			}
-		} else if ( !is_pp_cp_mode() && isset($bid_points['enabled']) && 'winning' == $bid['bid_status'] ) {
+		} else if ( !is_ppcp_mode() && isset($bid_points['enabled']) && 'winning' == $bid['bid_status'] ) {
 			// Normal Cubepoints
-			$bid_pts = (float)get_option('pp_cp_bid_pts');
+			$bid_pts = (float)get_option('ppcp_bid_pts');
 			//award set points to bidder
 			cp_alterPoints( $bidder_id , $bid_pts );
 			cp_log( __('Successful Bid','cp') , $bidder_id ,  $bid_pts , $source);	
@@ -245,7 +245,7 @@ function pp_cp_bid( $bid ) {
  * @uses intval
  *
  */
-function pp_cp_cubepoints_int( $args ) {
+function ppcp_cubepoints_int( $args ) {
 	$args['increment'] = floor($args['increment']);
 	return $args;
 }
@@ -276,7 +276,7 @@ function ptsVal($args) {
  * @uses 
  *
  */
-function pp_cp_bid_format( $args ) {
+function ppcp_bid_format( $args ) {
 
 			//	$args['coefficient']
 			//	$args['constant']

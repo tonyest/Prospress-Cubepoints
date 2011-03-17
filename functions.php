@@ -10,18 +10,18 @@
  *
  * @uses 
  */
-function pp_cp_cubepoints_mode() {
+function ppcp_cubepoints_mode() {
 
-	if ( is_pp_cp_mode() ) {
+	if ( is_ppcp_mode() ) {
 		remove_action( 'post_completed' , 'pp_generate_invoice' );
 
-		add_action( 'admin_head' , 'pp_cp_cubepoints_mode_menu' );
-		add_filter( 'bid_pre_db_insert','pp_cp_validate_bid' , 1 , 1 );
-		add_filter( 'bid_message','pp_cp_validate_post' , 1 , 2 );
-		add_filter( 'increment_bid_value' , 'pp_cp_cubepoints_int' , 1 , 1 );
+		add_action( 'admin_head' , 'ppcp_cubepoints_mode_menu' );
+		add_filter( 'bid_pre_db_insert','ppcp_validate_bid' , 1 , 1 );
+		add_filter( 'bid_message','ppcp_validate_post' , 1 , 2 );
+		add_filter( 'increment_bid_value' , 'ppcp_cubepoints_int' , 1 , 1 );
 	}
-		add_action('get_auction_bid','pp_cp_bid');	
-		add_action( 'post_completed', 'pp_cp_win' );
+		add_action('get_auction_bid','ppcp_bid');	
+		add_action( 'post_completed', 'ppcp_win' );
 }
 
 /**
@@ -34,7 +34,7 @@ function pp_cp_cubepoints_mode() {
  *
  * @uses 
  */
-function pp_cp_cubepoints_mode_menu() {
+function ppcp_cubepoints_mode_menu() {
 	global $submenu;
 	unset( $submenu['outgoing_invoices'][2] );
 }
