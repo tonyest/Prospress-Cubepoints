@@ -94,20 +94,18 @@ function ppcp_bid( $bid ) {
 		$prev_bid = $prev->winning_bid_value;
 		$max_bid = $prev->post_content;
 
-		if(	$prev_bidder == $bidder_id ) {
-			//increase max bid
-			cp_points('custom', $bidder_id, $max_bid - $bid_value, sprintf(__('Maximum bid increased. Total of %s points held for item %s', 'ppcp' ), $bid_value, $source) );
-		} else {
-			//new winner
-			//refund bid amount as points to user
-			cp_points('custom', $prev_bidder, $max_bid, sprintf(__('Outbid! points unfrozen for item ', 'ppcp'), $source ) );
-			//remove bid amount as points from user
-			cp_points('custom', $bidder_id, -$bid_value, sprintf( __('Successful Bid! points frozen for item %s', 'ppcp'), $source ) );
+		if(	$prev_bidder == $bidder_id ) {//increase max bid
 			
+			cp_points('custom', $bidder_id, $max_bid - $bid_value, sprintf(__('Maximum bid increased. Total of %s points held for item %s', 'ppcp' ), $bid_value, $source) );
+		} else {//new winner
+			
+			//refund bid amount as points to user
+			cp_points('custom', $prev_bidder, $max_bid, sprintf(__('Outbid! points unfrozen for item %s', 'ppcp'), $source ) );
+			//remove bid amount as points from user
+			cp_points('custom', $bidder_id, -$bid_value, sprintf( __('Successful Bid! points frozen for item %s', 'ppcp'), $source ) );	
 		}
-	} elseif ( isset($ppcp_bid_points['enabled']) ) {
-		// Normal Cubepoints
-
+	} elseif ( isset($ppcp_bid_points['enabled']) ) {// Normal Cubepoints
+		
 		$bid_pts = (float)get_option('ppcp_bid_pts');
 		
 		if('on' == $bid_pts[enabled])		//award set points to bidder	
@@ -146,7 +144,7 @@ function ppcp_win( $post_id ) {
 	if ( is_ppcp_mode() ) {
 		//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)						
 		cp_points( 'custom', $seller, $bid_value, sprintf( __('Item %s sold.   Credited %s'), $title, pp_money_format($bid_value) ) );
-		cp_points( 'custom', $bidder, $max_bid - $bid_value, sprintf(__( 'Item %s won for %s.   Unfroze %s', 'ppcp' ), pp_money_format($bid_value), pp_money_format($max_bid - $bid_value) ) );
+		cp_points( 'custom', $bidder, $max_bid - $bid_value, sprintf(__( 'Item %s won for %s.   Unfroze %s', 'ppcp' ), $title,  pp_money_format($bid_value), pp_money_format($max_bid - $bid_value) ) );
 
 	} else {
 		
