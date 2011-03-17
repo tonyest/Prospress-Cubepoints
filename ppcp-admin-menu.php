@@ -33,7 +33,7 @@ function ppcp_admin_menu() {
 							<input type="text" class="win-points" <?php disabled($ppcp_mode);?> id="ppcp_win_points" name="ppcp_win_points" value="<?php echo $ppcp_win_points; ?>" size="10" ></input>
 						</td>					
 						<td>
-							<!-- <input type="button" onclick="document.getElementById('ppcp_win_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
+							<input type="button" onclick="document.getElementById('ppcp_win_points').value='0'" value="<?php _e('Do not add points for new registrations','ppcp'); ?>" class="button" />
 						</td>
 					</tr>
 					<tr valign="top">
@@ -43,7 +43,7 @@ function ppcp_admin_menu() {
 						<td valign="middle">
 							<input type="text" class="sell-points" <?php disabled($ppcp_mode);?> id="ppcp_sell_points" name="ppcp_sell_points" value="<?php echo $ppcp_sell_points; ?>" size="10" /></td>
 						<td>
-							<!-- <input type="button" onclick="document.getElementById('ppcp_sell_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
+							<input type="button" onclick="document.getElementById('ppcp_sell_points').value='0'" value="<?php _e('Do not add points for new registrations','ppcp'); ?>" class="button" />
 						</td>
 					</tr>
 					<tr valign="top">
@@ -52,7 +52,7 @@ function ppcp_admin_menu() {
 							<input type="text" class="bid-points" <?php disabled($ppcp_mode);?> id="ppcp_bid_points" name="ppcp_bid_points" value="<?php echo $ppcp_bid_points; ?>" size="10" />
 						</td>
 						<td>
-							<!-- <input type="button" onclick="document.getElementById('ppcp_bid_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
+							<input type="button" onclick="document.getElementById('ppcp_bid_points').value='0'" value="<?php _e('Do not add points for new registrations','ppcp'); ?>" class="button" />
 						</td>
 					</tr>
 				</table>
