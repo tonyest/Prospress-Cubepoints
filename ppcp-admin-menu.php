@@ -22,7 +22,7 @@ function ppcp_admin_menu() {
 			<p>Enabling Cubepoints mode in Prospress will change the auction system to use Cubepoints as a currency.  When Cubepoints mode is active the entire market system runs on a virtual currency; users may bid on auctions or purchase items using their accumulated Cubepoints.  IMPORTANT: In Cubepoints-mode Prospress payments module is de-activated as are the General settings below. 
 			</p>
 
-			<h3><?php _e('General Settings','cp'); ?></h3>
+			<h3><?php _e('General Settings','ppcp'); ?></h3>
 			<p class="ppcp-admin-menu general-settings">
 				<table class="ppcp-admin-menu form-table">
 					<tr valign="top">
@@ -56,8 +56,8 @@ function ppcp_admin_menu() {
 				</table>
 			</p>
 			<p class="ppcp-admin-menu submit">
-				<button type="submit" <?php disabled($ppcp_mode);?> name="submit" value="Save" class="button-primary" >
-					<?php _e('Update Options','cp'); ?>
+				<button type="submit"  class="button-primary" <?php disabled($ppcp_mode);?> >
+					<?php _e('Update Options','ppcp'); ?>
 				</button>
 			</p>
 		</form>
