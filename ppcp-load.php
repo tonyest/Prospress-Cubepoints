@@ -57,8 +57,6 @@ function ppcp_load(){
 				remove_action( 'post_completed' , 'pp_generate_invoice' );
 				// add options submenu
 				add_action( 'admin_head' , 'ppcp_cubepoints_mode_menu' );
-				// custom bid validation and bid cubepoints allocation
-				add_filter( 'bid_pre_db_insert','ppcp_validate_bid' , 1 , 1 );
 				// provide custom messages for Prospress-Cubepoints validation behaviour
 				add_filter( 'bid_message','ppcp_validate_post' , 1 , 2 );
 				// Standardise bid increments to whole numbers as compatible with Cubepoints systems
@@ -66,6 +64,9 @@ function ppcp_load(){
 				// format Cubepoints currency type in Prospress
 				add_filter('pp_money_format','ppcp_currency_format');//add cubepoints format
 			}
+			// custom bid validation and bid cubepoints allocation
+			add_filter( 'bid_pre_db_insert','ppcp_validate_bid' , 1 , 1 );
+			
 			// enqueue styles and register settings to admin pages
 			add_action('admin_init','ppcp_admin_init' , 10);
 			// add Cubepoints 'CPS' currency type to Prospress

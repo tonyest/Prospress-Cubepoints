@@ -11,9 +11,9 @@ function ppcp_admin_menu() {
 	if( $ppcp_mode )
 		add_settings_error( 'cubepoints-mode', 'ppcp-mode', $message, 'error' );
 		
-	$ppcp_win_points = get_option('ppcp_win_points', '5' );
-	$ppcp_sell_points = get_option('ppcp_sell_points', '5' );
-	$ppcp_bid_points = get_option('ppcp_bid_points', '5' );		
+	$ppcp_win_points = get_option('ppcp_win_points', '10' );
+	$ppcp_sell_points = get_option('ppcp_sell_points', '8' );
+	$ppcp_bid_points = get_option('ppcp_bid_points', '0' );		
 	?>
 	<div class="wrap">
 		<h2>CubePoints - Prospress Settings</h2>
@@ -28,31 +28,31 @@ function ppcp_admin_menu() {
 			<p class="ppcp-admin-menu general-settings">
 				<table class="ppcp-admin-menu form-table">
 					<tr valign="top">
-						<th scope="row"><label for="ppcp_win_points"><?php _e('Number of points for purchase (win)', 'ppcp'); ?>:</label></th>
+						<th scope="row"><label for="ppcp_win_points"><?php _e('Number of points gained for purchase (win)', 'ppcp'); ?>:</label></th>
 						<td valign="middle">
-							<input type="text" class="win-points" <?php disabled($ppcp_mode);?> id="ppcp_win_points" name="ppcp_win_points[value]" value="<?php echo $ppcp_win_points['value']; ?>" size="10" ></input>
+							<input type="text" class="win-points" <?php disabled($ppcp_mode);?> id="ppcp_win_points" name="ppcp_win_points" value="<?php echo $ppcp_win_points; ?>" size="10" ></input>
 						</td>					
 						<td>
-							<input type="checkbox" class="win-points" <?php disabled($ppcp_mode);?> name="ppcp_win_points[enabled]" <?php checked($ppcp_win_points['enabled'],'on'); ?> ><?php _e('Enable points for winning auctions','ppcp'); ?>
-							</input>
+							<!-- <input type="button" onclick="document.getElementById('ppcp_win_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for="ppcp_sell_points"><?php _e('Number of points added for selling an item','ppcp'); ?>:</label>
+							<label for="ppcp_sell_points"><?php _e('Number of points gained for selling an item','ppcp'); ?>:</label>
 						</th>
 						<td valign="middle">
-							<input type="text" class="sell-points" <?php disabled($ppcp_mode);?> id="ppcp_sell_points" name="ppcp_sell_points[value]" value="<?php echo $ppcp_win_points['value']; ?>" size="10" /></td>
+							<input type="text" class="sell-points" <?php disabled($ppcp_mode);?> id="ppcp_sell_points" name="ppcp_sell_points" value="<?php echo $ppcp_sell_points; ?>" size="10" /></td>
 						<td>
-							<input type="checkbox" class="sell-points" <?php disabled($ppcp_mode);?> name="ppcp_sell_points[enabled]" <?php checked($ppcp_sell_points['enabled'] , 'on' ); ?> ><?php _e('Enable points for selling items','ppcp'); ?></input></td>
+							<!-- <input type="button" onclick="document.getElementById('ppcp_sell_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
+						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="ppcp_bid_points"><?php _e('Number of points for each winning bid','ppcp'); ?>:</label></th>
+						<th scope="row"><label for="ppcp_bid_points"><?php _e('Number of points gained for each successful bid','ppcp'); ?>:</label></th>
 						<td valign="middle">
-							<input type="text" class="bid-points" <?php disabled($ppcp_mode);?> id="ppcp_bid_points" name="ppcp_bid_points[value]" value="<?php echo $ppcp_bid_points['value']; ?>" size="10" />
+							<input type="text" class="bid-points" <?php disabled($ppcp_mode);?> id="ppcp_bid_points" name="ppcp_bid_points" value="<?php echo $ppcp_bid_points; ?>" size="10" />
 						</td>
 						<td>
-							<input type="checkbox" class="bid-points" <?php disabled($ppcp_mode);?> name="ppcp_bid_points[enabled]" <?php checked($ppcp_bid_points['enabled'], 'on'); ?> ><?php _e('Enable points winning bids','ppcp'); ?></input>
+							<!-- <input type="button" onclick="document.getElementById('ppcp_bid_points').value='0'" value="<?php// _e('Do not add points for new registrations','ppcp'); ?>" class="button" /> -->
 						</td>
 					</tr>
 				</table>
