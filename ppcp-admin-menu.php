@@ -1,15 +1,13 @@
 <?php
 function ppcp_admin_menu() {
 	
-	if ( !current_user_can('manage_options') ) {
+	if ( !current_user_can('manage_options') )
 		wp_die( __('You do not have sufficient permissions to access this page.', 'ppcp') );
-	}
 	
 	$ppcp_mode = is_ppcp_mode();
 		
-	$message = __( "Prospress - Cubepoints mode is active:&nbsp;&nbsp;&nbsp;Normal points options disabled.", 'ppcp');
 	if( $ppcp_mode )
-		add_settings_error( 'cubepoints-mode', 'ppcp-mode', $message, 'error' );
+		add_settings_error( 'cubepoints-mode', 'ppcp-mode', __( "Prospress - Cubepoints mode is active:&nbsp;&nbsp;&nbsp;Normal points options disabled.", 'ppcp'), 'error' );
 		
 	$ppcp_win_points = get_option('ppcp_win_points', '10' );
 	$ppcp_sell_points = get_option('ppcp_sell_points', '8' );
@@ -28,7 +26,7 @@ function ppcp_admin_menu() {
 			<p class="ppcp-admin-menu general-settings">
 				<table class="ppcp-admin-menu form-table">
 					<tr valign="top">
-						<th scope="row"><label for="ppcp_win_points"><?php _e('Number of points gained for purchase (win)', 'ppcp'); ?>:</label></th>
+						<th scope="row"><label for="ppcp_win_points" <?php disabled($ppcp_mode);?>><?php _e('Number of points gained for purchase (win)', 'ppcp'); ?>:</label></th>
 						<td valign="middle">
 							<input type="text" class="win-points" <?php disabled($ppcp_mode);?> id="ppcp_win_points" name="ppcp_win_points" value="<?php echo $ppcp_win_points; ?>" size="10" ></input>
 						</td>					
@@ -38,7 +36,7 @@ function ppcp_admin_menu() {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for="ppcp_sell_points"><?php _e('Number of points gained for selling an item','ppcp'); ?>:</label>
+							<label for="ppcp_sell_points" <?php disabled($ppcp_mode);?>><?php _e('Number of points gained for selling an item','ppcp'); ?>:</label>
 						</th>
 						<td valign="middle">
 							<input type="text" class="sell-points" <?php disabled($ppcp_mode);?> id="ppcp_sell_points" name="ppcp_sell_points" value="<?php echo $ppcp_sell_points; ?>" size="10" /></td>
@@ -47,7 +45,7 @@ function ppcp_admin_menu() {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="ppcp_bid_points"><?php _e('Number of points gained for each successful bid','ppcp'); ?>:</label></th>
+						<th scope="row"><label for="ppcp_bid_points" <?php disabled($ppcp_mode);?>><?php _e('Number of points gained for each successful bid','ppcp'); ?>:</label></th>
 						<td valign="middle">
 							<input type="text" class="bid-points" <?php disabled($ppcp_mode);?> id="ppcp_bid_points" name="ppcp_bid_points" value="<?php echo $ppcp_bid_points; ?>" size="10" />
 						</td>
@@ -65,5 +63,5 @@ function ppcp_admin_menu() {
 		</form>
 	</div>
 	<?php 	
-}// ppcp_admin_menu
+}
 ?>
