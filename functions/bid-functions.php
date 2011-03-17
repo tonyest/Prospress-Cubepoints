@@ -71,7 +71,6 @@ function ppcp_validate_post( $message, $message_id ) {
  * @since 0.1
  *
  * @uses is_user_logged_in,get_option,cp_log,cp_currentUser
- * $bid = "post_id", "bidder_id", "bid_value", "bid_date", "bid_date_gmt"
  */
 function ppcp_bid( $bid ) {	
 
@@ -124,8 +123,7 @@ function ppcp_bid( $bid ) {
  * @since 0.1
  *
  * @uses is_winning_bidder,cp_alterPoints,cp_log,is_user_logged_in
- * $args  'post_id', 'payer_id', 'payee_id', 'amount', 'status', 'type' 
- * cp_log ($type, $uid, $points, $source)
+ * 
  */
 function ppcp_win( $post_id ) {
 
