@@ -1,9 +1,4 @@
 <?php
-
-/*
-		================= Bid Functions =================	
-*/
-
 /**
 * Hooks into validate_bid to check sufficient Cubepoints for bid
 * 

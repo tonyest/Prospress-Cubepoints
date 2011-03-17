@@ -29,10 +29,8 @@ function ptsVal($args) {
 	return $args;
 }
 
-/* 
-								============== Hook Callback Functions ============== 
-*/
 
+/* ============== Hook Callback Functions ============== */
 
 /**
  * Add Prospress-Cubepoints submenu to Cubepoints
