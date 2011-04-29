@@ -25,22 +25,6 @@ e.g.
 5. The submenu 'Cubepoints Auctions' is now available in the Cubepoints group. You may alter any Prospress specific cubepoints options on this screen.
 6. To activate 'Cubepoints mode' and use Cubepoints as the currency for your Prospress auction site simply select the Cubepoints currency 'CPS' from 'General Settings' under the Prospress menu group.
 
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif)
-2. This is the second screen shot
-
 == Changelog ==
 
 = 0.1.0 =
