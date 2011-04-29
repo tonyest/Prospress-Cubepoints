@@ -4,7 +4,7 @@ Donate link: http://leonardsego.org
 Tags: Prospress, Cubepoints, auctions, auction, points
 Requires at least: Wordpress 2.0.2, Prospress 1.1, Cubepoints 3
 Tested up to: 3.1
-Stable tag: 0.1
+Stable tag: 0.1.0
 
 Prospress-Cubepoints is a module for Cubepoints plugin that extends the functionality of the Prospress plugin to award cubepoints or run on cubepoints as an auction currency.
 
