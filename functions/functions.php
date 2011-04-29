@@ -99,7 +99,7 @@ function ppcp_cubepoints_mode_menu() {
 function ppcp_currency_format($currency) {
 	global $currency_symbol;
 	$currency_symbol = get_option('cp_prefix'); //reset symbol to only prefix to avoid formatting errors
-	return (get_option( 'currency_type' )=='CPS')?array(get_option('cp_prefix'),(int)$currency[1],get_option('cp_suffix')):$currency;
+	return (get_option( 'currency_type' ) == "CPS")? array( get_option('cp_prefix'), $currency[1], get_option('cp_suffix') ) : $currency;
 }
 
 /**

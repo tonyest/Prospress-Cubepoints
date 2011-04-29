@@ -114,7 +114,7 @@ function ppcp_bid( $bid ) {
  * @package Prospress Cubepoints
  * @since 0.1
  *
- * @uses is_winning_bidder,cp_alterPoints,cp_log,is_user_logged_in
+ * @uses get_winning_bid, pp_money_format, cp_points, cp_points
  * 
  */
 function ppcp_win( $post_id ) {
