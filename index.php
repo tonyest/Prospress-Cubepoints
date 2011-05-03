@@ -3,7 +3,7 @@
 Plugin Name: Prospress Cubepoints
 Plugin URI: http://prospress.org
 Description: Add Cubepoints functionality to Prospress marketplaces
-Author: tonyest
+Author: Anthony Yin-Xiong Khoo
 Version: 0.1.1
 Author URI: http://prospress.org/
 */

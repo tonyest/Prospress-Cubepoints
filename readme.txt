@@ -10,8 +10,7 @@ Prospress-Cubepoints is a module for Cubepoints plugin that extends the function
 
 == Description ==
 
-As requested this plugin allows a [Prospress](http://prospress.org "Prospress auctions") auction site to use [Cubepoints](http://cubepoints.com "Cubepoints") as its trading currency. There is also the option for simple awarding of points for basic Prospress actions ( bid, win/sell ).
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+This plugin allows a [Prospress](http://prospress.org "Prospress auctions") auction site to use [Cubepoints](http://cubepoints.com "Cubepoints") as its trading currency. There is also the option for simple awarding of points for basic Prospress actions ( bid, win/sell ).
 
 == Installation ==
 
