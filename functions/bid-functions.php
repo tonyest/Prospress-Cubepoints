@@ -23,8 +23,6 @@ function ppcp_validate_bid( $bid ) {
 		} else if ( !is_numeric((string)$bid['bid_value']) && $bid['bid_status'] != 'invalid') {
 			$bid['bid_status'] = 'invalid';
 			$market_systems[ 'auctions' ]->message_id = 'ppcp_invalid';
-		} else {
-			$bid['bid_value'] = floor($bid['bid_value']);
 		}
 	}
 	
