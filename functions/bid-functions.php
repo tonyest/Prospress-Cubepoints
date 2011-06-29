@@ -129,7 +129,7 @@ function ppcp_win( $post_id ) {
 	$max_bid = $bid->post_content;
 	$title = $post->post_title;
 	
-	if ( is_ppcp_mode() ) {
+	if ( ( is_ppcp_mode() ) && ( get_bid_count( $post_id ) > 0 ) ) {
 		//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)						
 		cp_points( 'custom', $seller, $bid_value, sprintf( __('Item %s sold.   Credited %s'), $title, pp_money_format($bid_value) ) );
 		cp_points( 'custom', $bidder, $max_bid - $bid_value, sprintf(__( 'Item %s won for %s.   Unfroze %s', 'ppcp' ), $title,  pp_money_format($bid_value), pp_money_format($max_bid - $bid_value) ) );
