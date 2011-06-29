@@ -20,7 +20,7 @@ function ppcp_validate_bid( $bid ) {
 		if ( $bid_value > cp_getPoints( $bid['bidder_id'] ) && $bid['bid_status'] != 'invalid' ) {
 			$bid['bid_status'] = 'invalid';
 			$market_systems[ 'auctions' ]->message_id = 'ppcp_insufficient_points';
-		} else if ( !ctype_digit((string)$bid['bid_value']) && $bid['bid_status'] != 'invalid') {
+		} else if ( !is_numeric((string)$bid['bid_value']) && $bid['bid_status'] != 'invalid') {
 			$bid['bid_status'] = 'invalid';
 			$market_systems[ 'auctions' ]->message_id = 'ppcp_invalid';
 		} else {
