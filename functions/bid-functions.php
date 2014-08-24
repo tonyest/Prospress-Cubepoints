@@ -20,11 +20,9 @@ function ppcp_validate_bid( $bid ) {
 		if ( $bid_value > cp_getPoints( $bid['bidder_id'] ) && $bid['bid_status'] != 'invalid' ) {
 			$bid['bid_status'] = 'invalid';
 			$market_systems[ 'auctions' ]->message_id = 'ppcp_insufficient_points';
-		} else if ( !ctype_digit((string)$bid['bid_value']) && $bid['bid_status'] != 'invalid') {
+		} else if ( !is_numeric((string)$bid['bid_value']) && $bid['bid_status'] != 'invalid') {
 			$bid['bid_status'] = 'invalid';
 			$market_systems[ 'auctions' ]->message_id = 'ppcp_invalid';
-		} else {
-			$bid['bid_value'] = floor($bid['bid_value']);
 		}
 	}
 	
@@ -131,7 +129,7 @@ function ppcp_win( $post_id ) {
 	$max_bid = $bid->post_content;
 	$title = $post->post_title;
 	
-	if ( is_ppcp_mode() ) {
+	if ( ( is_ppcp_mode() ) && ( get_bid_count( $post_id ) > 0 ) ) {
 		//auction is won -  award points to seller & confirm to winner (final bid amount will be equal to purchase amount)						
 		cp_points( 'custom', $seller, $bid_value, sprintf( __('Item %s sold.   Credited %s'), $title, pp_money_format($bid_value) ) );
 		cp_points( 'custom', $bidder, $max_bid - $bid_value, sprintf(__( 'Item %s won for %s.   Unfroze %s', 'ppcp' ), $title,  pp_money_format($bid_value), pp_money_format($max_bid - $bid_value) ) );

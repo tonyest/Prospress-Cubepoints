@@ -59,8 +59,6 @@ function ppcp_load(){
 				add_action( 'admin_head' , 'ppcp_cubepoints_mode_menu' );
 				// provide custom messages for Prospress-Cubepoints validation behaviour
 				add_filter( 'bid_message','ppcp_validate_post' , 1 , 2 );
-				// Standardise bid increments to whole numbers as compatible with Cubepoints systems
-				add_filter( 'increment_bid_value' , 'ppcp_floor_bid_increment' , 1 , 1 );
 				// format Cubepoints currency type in Prospress
 				add_filter('pp_money_format','ppcp_currency_format');//add cubepoints format
 			}
